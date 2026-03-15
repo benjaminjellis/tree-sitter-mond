@@ -22,29 +22,37 @@
 ((identifier) @keyword.operator
   (#eq? @keyword.operator "and"))
 
+; Use declarations
+(use_decl (qualified_ident) @module)
+(use_decl (identifier) @module)
+(use_items (identifier) @module)
+(wildcard_import) @operator
+
 ; Declarations — function names
-(let_func name: (identifier) @function)
-(extern_let name: (identifier) @function)
+((let_func name: (identifier) @function)
+  (#set! "priority" 130))
+((extern_let name: (identifier) @function)
+  (#set! "priority" 130))
 
 ; Parameters
 ((let_func (param_list (identifier) @variable.parameter))
-  (#set! "priority" 120))
+  (#set! "priority" 140))
 ((lambda (param_list (identifier) @variable.parameter))
-  (#set! "priority" 120))
+  (#set! "priority" 140))
 ((match_expr
    (match_targets (identifier) @variable.parameter))
   (#has-ancestor? @variable.parameter let_func)
-  (#set! "priority" 121))
+  (#set! "priority" 141))
 ((match_arm
    (identifier) @variable.parameter)
   (#has-ancestor? @variable.parameter let_func)
-  (#set! "priority" 121))
+  (#set! "priority" 141))
 ((call_expr
    .
    (type_name)
    (identifier) @variable.parameter)
   (#has-ancestor? @variable.parameter let_func)
-  (#set! "priority" 121))
+  (#set! "priority" 141))
 
 ; Type declarations
 (type_decl name: (type_name) @type)
@@ -63,21 +71,25 @@
 (pipeline_expr "|>" @keyword.operator)
 
 ; Call expressions — highlight the function being called
-(call_expr . (identifier) @function.call)
-(call_expr . (qualified_ident) @function.call)
+((call_expr . (identifier) @function.call)
+  (#set! "priority" 125))
+((call_expr . (qualified_ident) @function.call)
+  (#set! "priority" 125))
+((call_expr . (type_name) @constructor)
+  (#set! "priority" 126))
 
 ; Record construction
-(record_construct name: (type_name) @constructor)
+(record_construct name: (type_name) @type)
 (record_construct (field_name) @property)
 (record_update (field_name) @property)
 ((record_construct
    (field_name)
    (identifier) @variable.parameter)
-  (#set! "priority" 121))
+  (#set! "priority" 141))
 ((record_update
    (field_name)
    (identifier) @variable.parameter)
-  (#set! "priority" 121))
+  (#set! "priority" 141))
 
 ; Field access
 (field_access (field_name) @property)
@@ -97,16 +109,12 @@
 (type_var) @type.parameter
 
 ; Qualified identifiers in expressions default to variable-like refs
-(qualified_ident) @variable
+((qualified_ident) @variable
+  (#set! "priority" 10))
 
 ; Plain identifiers (variables, function refs)
-(identifier) @variable
-
-; Use declarations
-(use_decl (qualified_ident) @module)
-(use_decl (identifier) @module)
-(use_items (identifier) @module)
-(wildcard_import) @operator
+((identifier) @variable
+  (#set! "priority" 10))
 
 ; Comments
 (comment) @comment

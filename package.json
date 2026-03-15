@@ -3,6 +3,18 @@
   "version": "0.1.0",
   "description": "Tree-sitter grammar for the Mond language",
   "main": "bindings/node",
+  "tree-sitter": [
+    {
+      "scope": "source.mond",
+      "file-types": [
+        "mond"
+      ],
+      "highlights": "queries/highlights.scm",
+      "injections": "queries/injections.scm",
+      "locals": "queries/locals.scm",
+      "tags": "queries/tags.scm"
+    }
+  ],
   "keywords": [
     "parser",
     "tree-sitter",
