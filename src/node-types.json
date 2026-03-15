@@ -2095,10 +2095,6 @@
     "named": false
   },
   {
-    "type": "or",
-    "named": false
-  },
-  {
     "type": "pub_kw",
     "named": true
   },

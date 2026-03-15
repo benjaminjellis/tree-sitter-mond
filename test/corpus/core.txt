@@ -114,3 +114,39 @@ Nested Type Usage
     (param_list
       (identifier))
     (identifier)))
+
+==================
+Underscored Numbers
+==================
+
+(let numbers {}
+  (let [a 1_000_000
+        b -2_500
+        c 3_141.5_9
+        d -10_000.25]
+    (+ a b)))
+
+---
+
+(source_file
+  (let_func
+    name: (identifier)
+    (param_list)
+    (let_local
+      (binding_list
+        (identifier)
+        (literal
+          (integer))
+        (identifier)
+        (literal
+          (integer))
+        (identifier)
+        (literal
+          (float))
+        (identifier)
+        (literal
+          (float)))
+      (call_expr
+        (identifier)
+        (identifier)
+        (identifier)))))

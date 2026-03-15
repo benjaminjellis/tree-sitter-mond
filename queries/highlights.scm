@@ -10,7 +10,7 @@
 "use" @keyword
 "test" @keyword
 "with" @keyword
-"or" @keyword.operator
+"|" @keyword.operator
 "~>" @keyword.operator
 "->" @keyword.operator
 "~" @punctuation.delimiter
@@ -21,6 +21,16 @@
 ; Operators encoded as identifiers
 ((identifier) @keyword.operator
   (#eq? @keyword.operator "and"))
+((identifier) @keyword.operator
+  (#eq? @keyword.operator "or"))
+((identifier) @keyword.operator
+  (#eq? @keyword.operator "not"))
+
+; Use declarations
+(use_decl (qualified_ident) @module)
+(use_decl (identifier) @module)
+(use_items (identifier) @module)
+(wildcard_import) @operator
 
 ; Use declarations
 (use_decl (qualified_ident) @module)
