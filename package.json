@@ -1,0 +1,21 @@
+{
+  "name": "tree-sitter-mond",
+  "version": "0.1.0",
+  "description": "Tree-sitter grammar for the Mond language",
+  "main": "bindings/node",
+  "keywords": [
+    "parser",
+    "tree-sitter",
+    "mond"
+  ],
+  "dependencies": {
+    "nan": "^2.18.0"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.24.0"
+  },
+  "scripts": {
+    "generate": "tree-sitter generate",
+    "test": "tree-sitter test"
+  }
+}
