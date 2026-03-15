@@ -26,6 +26,7 @@ module.exports = grammar({
       $.extern_let,
       $.extern_type,
       $.use_decl,
+      $.test_decl,
     ),
 
     // (pub? let name {params...} body...)
@@ -49,7 +50,6 @@ module.exports = grammar({
     type_decl: $ => seq(
       "(",
       optional($.pub_kw),
-      optional("opaque"),
       "type",
       optional($.type_params),
       field("name", $.type_name),
@@ -59,9 +59,9 @@ module.exports = grammar({
 
     type_params: $ => seq("[", repeat1($.type_var), "]"),
 
-    // Record:  ((:field1 ~ Type) (:field2 ~ Type))
-    // Variant: ((Ctor1 ~ Type) Ctor2)
-    _type_body: $ => seq("(", repeat($._type_member), ")"),
+    // Record:  [(:field1 ~ Type) (:field2 ~ Type)]
+    // Variant: [Ctor2 (Ctor1 ~ Type)]
+    _type_body: $ => seq("[", repeat($._type_member), "]"),
 
     _type_member: $ => choice(
       $.record_field_decl,
@@ -77,21 +77,20 @@ module.exports = grammar({
 
     // ── Extern declarations ───────────────────────────────────────────────────
 
-    // (pub? extern let name {}? ~ TypeSig module/fn)
+    // (pub? extern let name ~ TypeSig module/fn)
     extern_let: $ => seq(
       "(",
       optional($.pub_kw),
       "extern",
       "let",
       field("name", $.identifier),
-      optional(seq("{", "}")),
       "~",
       $._type_sig,
       $.qualified_ident,
       ")",
     ),
 
-    // (pub? extern type ['k 'v]? Name module/type)
+    // (pub? extern type ['k 'v]? Name [module/type])
     extern_type: $ => seq(
       "(",
       optional($.pub_kw),
@@ -99,7 +98,7 @@ module.exports = grammar({
       "type",
       optional($.type_params),
       field("name", $.type_name),
-      $.qualified_ident,
+      optional($.qualified_ident),
       ")",
     ),
 
@@ -112,6 +111,15 @@ module.exports = grammar({
       "use",
       choice($.qualified_ident, $.identifier),
       optional($.use_items),
+      ")",
+    ),
+
+    // (test "name" body)
+    test_decl: $ => seq(
+      "(",
+      "test",
+      field("name", $.string_lit),
+      field("body", $._expr),
       ")",
     ),
 
@@ -140,6 +148,8 @@ module.exports = grammar({
       $.lambda,
       $.field_access,
       $.record_construct,
+      $.record_update,
+      $.pipeline_expr,
       $.call_expr,
     ),
 
@@ -172,6 +182,9 @@ module.exports = grammar({
     // (do expr...)
     do_expr: $ => seq("(", "do", repeat1($._expr), ")"),
 
+    // (with record :field1 value1 ...)
+    record_update: $ => seq("(", "with", $._expr, repeat1(seq($.field_name, $._expr)), ")"),
+
     // (match target... arm...)
     match_expr: $ => seq(
       "(",
@@ -187,8 +200,8 @@ module.exports = grammar({
 
     pattern_tuple: $ => repeat1($._pattern),
 
-    // (fn {params} body...)
-    lambda: $ => seq("(", "fn", $.param_list, repeat1($._expr), ")"),
+    // (f {params} -> body)
+    lambda: $ => seq("(", "f", $.param_list, "->", $._expr, ")"),
 
     // (:field record)
     field_access: $ => seq("(", $.field_name, $._expr, ")"),
@@ -198,6 +211,15 @@ module.exports = grammar({
       "(",
       field("name", $.type_name),
       repeat1(seq($.field_name, $._expr)),
+      ")",
+    )),
+
+    // (|> value step1 step2 ...)
+    pipeline_expr: $ => prec(2, seq(
+      "(",
+      "|>",
+      $._expr,
+      repeat1($._expr),
       ")",
     )),
 
@@ -224,6 +246,7 @@ module.exports = grammar({
     // (Ctor pat...) or bare Ctor
     constructor_pat: $ => choice(
       seq("(", $.type_name, repeat($._pattern), ")"),
+      seq("(", $.type_name, repeat1(seq($.field_name, $._pattern)), ")"),
       $.type_name,
     ),
 
@@ -240,6 +263,7 @@ module.exports = grammar({
       $.app_type_sig,
       $.named_type_sig,
       $.generic_type_sig,
+      $.parenthesized_type_sig,
     ),
 
     // (A -> B)
@@ -252,12 +276,31 @@ module.exports = grammar({
 
     generic_type_sig: $ => $.type_var,
 
+    // (Option (Selector 'm))
+    parenthesized_type_sig: $ => seq(
+      "(",
+      choice($.app_type_sig, $.named_type_sig, $.generic_type_sig),
+      ")",
+    ),
+
     // ── Type usages (in type declarations) ───────────────────────────────────
 
     _type_usage: $ => choice(
+      $.fun_type_usage,
       $.app_type_usage,
       $.named_type_usage,
       $.type_var,
+      $.parenthesized_type_usage,
+    ),
+
+    // (A -> B)
+    fun_type_usage: $ => seq("(", $._type_usage, "->", $._type_usage, ")"),
+
+    // (Selector 'm), (Option (Selector 'm))
+    parenthesized_type_usage: $ => seq(
+      "(",
+      choice($.app_type_usage, $.named_type_usage, $.type_var),
+      ")",
     ),
 
     app_type_usage: $ => prec.right(seq($.type_name, repeat1($._type_usage))),
@@ -271,7 +314,6 @@ module.exports = grammar({
       $.integer,
       $.boolean,
       $.string_lit,
-      $.unit_lit,
     ),
 
     list_lit: $ => seq("[", repeat($._expr), "]"),
@@ -285,8 +327,6 @@ module.exports = grammar({
 
     string_lit: _ => token(/"([^"\\]|\\.)*"/),
 
-    unit_lit: _ => token("unit"),
-
     // Operators like +, -, *, /, =, <, >, <=, >=, !=, +., -., *., /.
     operator: _ => token(/[\+\-\*\/=<>!&|\.]+/),
 
@@ -296,8 +336,8 @@ module.exports = grammar({
     // :fieldName
     field_name: _ => token(/:[a-zA-Z_][a-zA-Z0-9_]*/),
 
-    // module/function or nested/module/path
-    qualified_ident: _ => token(/[a-z][a-zA-Z0-9_]*(\/[a-zA-Z_][a-zA-Z0-9_]*)+/),
+    // module/function
+    qualified_ident: _ => token(/[a-z][a-zA-Z0-9_]*\/[a-zA-Z_][a-zA-Z0-9_]*/),
 
     // UpperCase names: types, constructors
     type_name: _ => token(/[A-Z][a-zA-Z0-9_]*/),

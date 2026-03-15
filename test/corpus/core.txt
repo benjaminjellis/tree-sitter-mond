@@ -1,0 +1,116 @@
+==================
+Type And Pipeline
+==================
+
+(pub type ['a] Box [(:value ~ 'a)])
+(let main {}
+  (let [x (|> 10 (add 1) (mul 2))]
+    (with (Point :x 1 :y 2) :x x)))
+
+---
+
+(source_file
+  (type_decl
+    (pub_kw)
+    (type_params
+      (type_var))
+    name: (type_name)
+    (record_field_decl
+      name: (field_name)
+      (type_var)))
+  (let_func
+    name: (identifier)
+    (param_list)
+    (let_local
+      (binding_list
+        (identifier)
+        (pipeline_expr
+          (literal
+            (integer))
+          (call_expr
+            (identifier)
+            (literal
+              (integer)))
+          (call_expr
+            (identifier)
+            (literal
+              (integer)))))
+      (record_update
+        (record_construct
+          name: (type_name)
+          (field_name)
+          (literal
+            (integer))
+          (field_name)
+          (literal
+            (integer)))
+        (field_name)
+        (identifier)))))
+
+==================
+Test Decl And Lambda
+==================
+
+(test "bind sugar"
+  (let? [a (Ok 1)]
+    (bind (Ok 2) (f {b} -> (+ a b)))))
+
+---
+
+(source_file
+  (test_decl
+    name: (string_lit)
+    body: (let_question
+      (binding_list
+        (identifier)
+        (call_expr
+          (type_name)
+          (literal
+            (integer))))
+      (call_expr
+        (identifier)
+        (call_expr
+          (type_name)
+          (literal
+            (integer)))
+        (lambda
+          (param_list
+            (identifier))
+          (call_expr
+            (identifier)
+            (identifier)
+            (identifier)))))))
+
+==================
+Nested Type Usage
+==================
+
+(pub type ['m] ContinuePayload
+  [(:selector ~ (Option (Selector 'm)))])
+
+(pub let continue {state}
+  state)
+
+---
+
+(source_file
+  (type_decl
+    (pub_kw)
+    (type_params
+      (type_var))
+    name: (type_name)
+    (record_field_decl
+      name: (field_name)
+      (parenthesized_type_usage
+        (app_type_usage
+          (type_name)
+          (parenthesized_type_usage
+            (app_type_usage
+              (type_name)
+              (type_var)))))))
+  (let_func
+    (pub_kw)
+    name: (identifier)
+    (param_list
+      (identifier))
+    (identifier)))

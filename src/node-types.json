@@ -24,6 +24,10 @@
           "named": true
         },
         {
+          "type": "parenthesized_type_sig",
+          "named": true
+        },
+        {
           "type": "type_name",
           "named": true
         }
@@ -43,7 +47,15 @@
           "named": true
         },
         {
+          "type": "fun_type_usage",
+          "named": true
+        },
+        {
           "type": "named_type_usage",
+          "named": true
+        },
+        {
+          "type": "parenthesized_type_usage",
           "named": true
         },
         {
@@ -110,11 +122,19 @@
           "named": true
         },
         {
+          "type": "pipeline_expr",
+          "named": true
+        },
+        {
           "type": "qualified_ident",
           "named": true
         },
         {
           "type": "record_construct",
+          "named": true
+        },
+        {
+          "type": "record_update",
           "named": true
         },
         {
@@ -181,11 +201,19 @@
           "named": true
         },
         {
+          "type": "pipeline_expr",
+          "named": true
+        },
+        {
           "type": "qualified_ident",
           "named": true
         },
         {
           "type": "record_construct",
+          "named": true
+        },
+        {
+          "type": "record_update",
           "named": true
         },
         {
@@ -209,6 +237,10 @@
       "types": [
         {
           "type": "constructor_pat",
+          "named": true
+        },
+        {
+          "type": "field_name",
           "named": true
         },
         {
@@ -287,11 +319,19 @@
           "named": true
         },
         {
+          "type": "pipeline_expr",
+          "named": true
+        },
+        {
           "type": "qualified_ident",
           "named": true
         },
         {
           "type": "record_construct",
+          "named": true
+        },
+        {
+          "type": "record_update",
           "named": true
         },
         {
@@ -341,6 +381,10 @@
           "named": true
         },
         {
+          "type": "parenthesized_type_sig",
+          "named": true
+        },
+        {
           "type": "pub_kw",
           "named": true
         },
@@ -368,7 +412,7 @@
     },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "pub_kw",
@@ -442,11 +486,19 @@
           "named": true
         },
         {
+          "type": "pipeline_expr",
+          "named": true
+        },
+        {
           "type": "qualified_ident",
           "named": true
         },
         {
           "type": "record_construct",
+          "named": true
+        },
+        {
+          "type": "record_update",
           "named": true
         },
         {
@@ -482,6 +534,41 @@
         },
         {
           "type": "named_type_sig",
+          "named": true
+        },
+        {
+          "type": "parenthesized_type_sig",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "fun_type_usage",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "app_type_usage",
+          "named": true
+        },
+        {
+          "type": "fun_type_usage",
+          "named": true
+        },
+        {
+          "type": "named_type_usage",
+          "named": true
+        },
+        {
+          "type": "parenthesized_type_usage",
+          "named": true
+        },
+        {
+          "type": "type_var",
           "named": true
         }
       ]
@@ -555,11 +642,19 @@
           "named": true
         },
         {
+          "type": "pipeline_expr",
+          "named": true
+        },
+        {
           "type": "qualified_ident",
           "named": true
         },
         {
           "type": "record_construct",
+          "named": true
+        },
+        {
+          "type": "record_update",
           "named": true
         },
         {
@@ -630,11 +725,19 @@
           "named": true
         },
         {
+          "type": "pipeline_expr",
+          "named": true
+        },
+        {
           "type": "qualified_ident",
           "named": true
         },
         {
           "type": "record_construct",
+          "named": true
+        },
+        {
+          "type": "record_update",
           "named": true
         },
         {
@@ -716,6 +819,10 @@
           "named": true
         },
         {
+          "type": "pipeline_expr",
+          "named": true
+        },
+        {
           "type": "pub_kw",
           "named": true
         },
@@ -725,6 +832,10 @@
         },
         {
           "type": "record_construct",
+          "named": true
+        },
+        {
+          "type": "record_update",
           "named": true
         },
         {
@@ -795,11 +906,19 @@
           "named": true
         },
         {
+          "type": "pipeline_expr",
+          "named": true
+        },
+        {
           "type": "qualified_ident",
           "named": true
         },
         {
           "type": "record_construct",
+          "named": true
+        },
+        {
+          "type": "record_update",
           "named": true
         },
         {
@@ -870,11 +989,19 @@
           "named": true
         },
         {
+          "type": "pipeline_expr",
+          "named": true
+        },
+        {
           "type": "qualified_ident",
           "named": true
         },
         {
           "type": "record_construct",
+          "named": true
+        },
+        {
+          "type": "record_update",
           "named": true
         },
         {
@@ -941,11 +1068,19 @@
           "named": true
         },
         {
+          "type": "pipeline_expr",
+          "named": true
+        },
+        {
           "type": "qualified_ident",
           "named": true
         },
         {
           "type": "record_construct",
+          "named": true
+        },
+        {
+          "type": "record_update",
           "named": true
         },
         {
@@ -1012,10 +1147,6 @@
         },
         {
           "type": "string_lit",
-          "named": true
-        },
-        {
-          "type": "unit_lit",
           "named": true
         }
       ]
@@ -1093,11 +1224,19 @@
           "named": true
         },
         {
+          "type": "pipeline_expr",
+          "named": true
+        },
+        {
           "type": "qualified_ident",
           "named": true
         },
         {
           "type": "record_construct",
+          "named": true
+        },
+        {
+          "type": "record_update",
           "named": true
         },
         {
@@ -1195,6 +1334,52 @@
     }
   },
   {
+    "type": "parenthesized_type_sig",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "app_type_sig",
+          "named": true
+        },
+        {
+          "type": "generic_type_sig",
+          "named": true
+        },
+        {
+          "type": "named_type_sig",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parenthesized_type_usage",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "app_type_usage",
+          "named": true
+        },
+        {
+          "type": "named_type_usage",
+          "named": true
+        },
+        {
+          "type": "type_var",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "pattern_tuple",
     "named": true,
     "fields": {},
@@ -1220,6 +1405,85 @@
         },
         {
           "type": "wildcard_pat",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pipeline_expr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "call_expr",
+          "named": true
+        },
+        {
+          "type": "do_expr",
+          "named": true
+        },
+        {
+          "type": "field_access",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "if_expr",
+          "named": true
+        },
+        {
+          "type": "lambda",
+          "named": true
+        },
+        {
+          "type": "let_local",
+          "named": true
+        },
+        {
+          "type": "let_question",
+          "named": true
+        },
+        {
+          "type": "list_lit",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "match_expr",
+          "named": true
+        },
+        {
+          "type": "pipeline_expr",
+          "named": true
+        },
+        {
+          "type": "qualified_ident",
+          "named": true
+        },
+        {
+          "type": "record_construct",
+          "named": true
+        },
+        {
+          "type": "record_update",
+          "named": true
+        },
+        {
+          "type": "type_name",
+          "named": true
+        },
+        {
+          "type": "unit_expr",
           "named": true
         }
       ]
@@ -1293,11 +1557,19 @@
           "named": true
         },
         {
+          "type": "pipeline_expr",
+          "named": true
+        },
+        {
           "type": "qualified_ident",
           "named": true
         },
         {
           "type": "record_construct",
+          "named": true
+        },
+        {
+          "type": "record_update",
           "named": true
         },
         {
@@ -1335,11 +1607,102 @@
           "named": true
         },
         {
+          "type": "fun_type_usage",
+          "named": true
+        },
+        {
           "type": "named_type_usage",
           "named": true
         },
         {
+          "type": "parenthesized_type_usage",
+          "named": true
+        },
+        {
           "type": "type_var",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "record_update",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "call_expr",
+          "named": true
+        },
+        {
+          "type": "do_expr",
+          "named": true
+        },
+        {
+          "type": "field_access",
+          "named": true
+        },
+        {
+          "type": "field_name",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "if_expr",
+          "named": true
+        },
+        {
+          "type": "lambda",
+          "named": true
+        },
+        {
+          "type": "let_local",
+          "named": true
+        },
+        {
+          "type": "let_question",
+          "named": true
+        },
+        {
+          "type": "list_lit",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "match_expr",
+          "named": true
+        },
+        {
+          "type": "pipeline_expr",
+          "named": true
+        },
+        {
+          "type": "qualified_ident",
+          "named": true
+        },
+        {
+          "type": "record_construct",
+          "named": true
+        },
+        {
+          "type": "record_update",
+          "named": true
+        },
+        {
+          "type": "type_name",
+          "named": true
+        },
+        {
+          "type": "unit_expr",
           "named": true
         }
       ]
@@ -1367,6 +1730,10 @@
           "named": true
         },
         {
+          "type": "test_decl",
+          "named": true
+        },
+        {
           "type": "type_decl",
           "named": true
         },
@@ -1375,6 +1742,96 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "test_decl",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "call_expr",
+            "named": true
+          },
+          {
+            "type": "do_expr",
+            "named": true
+          },
+          {
+            "type": "field_access",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "if_expr",
+            "named": true
+          },
+          {
+            "type": "lambda",
+            "named": true
+          },
+          {
+            "type": "let_local",
+            "named": true
+          },
+          {
+            "type": "let_question",
+            "named": true
+          },
+          {
+            "type": "list_lit",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "match_expr",
+            "named": true
+          },
+          {
+            "type": "pipeline_expr",
+            "named": true
+          },
+          {
+            "type": "qualified_ident",
+            "named": true
+          },
+          {
+            "type": "record_construct",
+            "named": true
+          },
+          {
+            "type": "record_update",
+            "named": true
+          },
+          {
+            "type": "type_name",
+            "named": true
+          },
+          {
+            "type": "unit_expr",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string_lit",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1528,7 +1985,15 @@
           "named": true
         },
         {
+          "type": "fun_type_usage",
+          "named": true
+        },
+        {
           "type": "named_type_usage",
+          "named": true
+        },
+        {
+          "type": "parenthesized_type_usage",
           "named": true
         },
         {
@@ -1594,16 +2059,16 @@
     "named": false
   },
   {
+    "type": "f",
+    "named": false
+  },
+  {
     "type": "field_name",
     "named": true
   },
   {
     "type": "float",
     "named": true
-  },
-  {
-    "type": "fn",
-    "named": false
   },
   {
     "type": "identifier",
@@ -1630,10 +2095,6 @@
     "named": false
   },
   {
-    "type": "opaque",
-    "named": false
-  },
-  {
     "type": "or",
     "named": false
   },
@@ -1650,6 +2111,10 @@
     "named": true
   },
   {
+    "type": "test",
+    "named": false
+  },
+  {
     "type": "type",
     "named": false
   },
@@ -1659,10 +2124,6 @@
   },
   {
     "type": "type_var",
-    "named": true
-  },
-  {
-    "type": "unit_lit",
     "named": true
   },
   {
@@ -1678,11 +2139,19 @@
     "named": true
   },
   {
+    "type": "with",
+    "named": false
+  },
+  {
     "type": "{",
     "named": false
   },
   {
     "type": "|",
+    "named": false
+  },
+  {
+    "type": "|>",
     "named": false
   },
   {
