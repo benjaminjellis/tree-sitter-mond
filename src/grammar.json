@@ -864,7 +864,7 @@
             "members": [
               {
                 "type": "STRING",
-                "value": "or"
+                "value": "|"
               },
               {
                 "type": "SYMBOL",
@@ -1451,14 +1451,14 @@
       "type": "TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "-?[0-9]+\\.[0-9]+"
+        "value": "-?[0-9](?:_?[0-9])*\\.[0-9](?:_?[0-9])*"
       }
     },
     "integer": {
       "type": "TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "-?[0-9]+"
+        "value": "-?[0-9](?:_?[0-9])*"
       }
     },
     "boolean": {

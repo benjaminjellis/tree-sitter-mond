@@ -196,7 +196,7 @@ module.exports = grammar({
 
     match_targets: $ => prec.right(repeat1(choice($.identifier, $.qualified_ident))),
 
-    match_arm: $ => seq($.pattern_tuple, repeat(seq("or", $.pattern_tuple)), "~>", $._expr),
+    match_arm: $ => seq($.pattern_tuple, repeat(seq("|", $.pattern_tuple)), "~>", $._expr),
 
     pattern_tuple: $ => repeat1($._pattern),
 
@@ -319,9 +319,9 @@ module.exports = grammar({
     list_lit: $ => seq("[", repeat($._expr), "]"),
 
     // float before integer so 3.14 doesn't lex as int 3 + operator .14
-    float: _ => token(/-?[0-9]+\.[0-9]+/),
+    float: _ => token(/-?[0-9](?:_?[0-9])*\.[0-9](?:_?[0-9])*/),
 
-    integer: _ => token(/-?[0-9]+/),
+    integer: _ => token(/-?[0-9](?:_?[0-9])*/),
 
     boolean: _ => token(choice("True", "False")),
 
